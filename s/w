@@ -1,2 +1,13 @@
 #!/bin/sh
-curl -Ss --max-time 2 'https://wttr.in/Rijswijk?format=4' 2>/dev/null | cut -c16- | head -2 | tr '\n' ' '
+# File: ~/.config/i3blocks/weather.sh
+
+# Fetch weather, timeout after 2 seconds
+weather=$(curl -Ss --max-time 2 'https://wttr.in/Rijswijk?format=4' 2>/dev/null)
+
+# If curl fails or returns nothing, show placeholder
+if [ -z "$weather" ]; then
+    echo "🌤 N/A"
+else
+    # Take first 2 lines, trim first 15 chars, flatten to one line
+    echo "$weather" | head -2 | cut -c16- | tr '\n' ' '
+fi
