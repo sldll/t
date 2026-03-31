@@ -20,10 +20,10 @@ command=echo "rijswijk"
 interval=once
 color=#ed07c3
 
-[weather]
-command=~/s/w
-interval=3600
-color=#ed07c3
+#[weather]
+#command=~/s/w
+#interval=3600
+#color=#ed07c3
 
 [volume]
 command=~/s/v
