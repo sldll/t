@@ -20,10 +20,10 @@ command=echo "rijswijk"
 interval=once
 color=#ed07c3
 
-#[weather]
-#command=~/s/w
-#interval=3600
-#color=#ed07c3
+[weather]
+command=~/s/w
+interval=3600
+color=#ed07c3
 
 [volume]
 command=~/s/v
@@ -38,7 +38,7 @@ signal=2
 [battery]
 command=~/s/b
 interval=10
-color=#ed07c3
+color=#11917F
 
 [time]
 command=date +%a\ %b\ %d,
