@@ -19,6 +19,7 @@ if [[ "$(tty)" =~ ^/dev/tty[1-3]$ ]]; then
     if [[ ! -f ~/.init-done ]]; then
 	gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 	systemctl --user enable --now psd
+	systemctl enable tlp
 	fi
 	touch ~/.init-done
 
