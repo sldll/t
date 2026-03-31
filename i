@@ -3,7 +3,6 @@ set -euo pipefail
 
 sleep 0.2
 
-#su - $USERNAME -c 'git clone https://github.com/sldll/s dot'
 
 #sed -i 's|command=date.*|command=date +%a\\ %b\\ %d,\\ %H:%M|' /etc/i3blocks.conf
 #mkdir /home/$USERNAME/bak
@@ -52,6 +51,7 @@ echo
 HOST=ubuntu
 CNTRY=NL
 R="Europe/Amsterdam"
+DOT=dot
 
 HDD=nvme0n1
 DISK="/dev/$HDD"
@@ -153,6 +153,8 @@ hwclock --systohc
 
 systemctl enable NetworkManager
 systemctl enable fstrim.timer
+
+su - $USERNAME -c 'mkdir $DOT && cd $DOT && git clone https://github.com/sldll/s . &&  stow . --adopt --no-folding && git restore .'
 
 echo
 echo "🥵💀🥵💀🥵💀🥵💀🥵💀🥵💀🥵💀🥵💀🥵💀🥵💀🥵💀🥵💀"
