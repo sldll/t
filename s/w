@@ -1,2 +1,18 @@
-#!/bin/bash
-curl -Ss 'https://wttr.in/Rijswijk?format=4'
+#!/bin/sh
+# ~/.config/i3blocks/weather.sh
+
+# Fetch weather with 2-second timeout
+weather=$(curl -Ss --max-time 2 'https://wttr.in/Rijswijk?format=4' 2>/dev/null)
+
+# Fallback if empty
+if [ -z "$weather" ]; then
+    echo "🌤 N/A"
+    exit 0
+fi
+
+# Take first 2 lines, cut chars 16 onward, flatten, remove leading/trailing spaces
+output=$(echo "$weather" | head -2 | cut -c16- | tr '\n' ' ' | sed 's/^[[:space:]]*//; s/[[:space:]]*$//')
+
+# Print to i3blocks
+echo "$output"
+exit 0
