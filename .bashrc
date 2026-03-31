@@ -34,7 +34,7 @@ alias p='ping 1.1.1.1'
 
 #alias vam='vim $(fzf --preview="bat --color=always {}")'
 alias vam2='selected=$(fzf --preview="bat --color=always {}") && vim "$selected"'
-alias vam='selected=$(fd . /usr $HOME/ /etc --type f | fzf --preview="bat --color=always {}") && vim "$selected"'
+#alias vam='selected=$(fd . /usr $HOME/ /etc --type f | fzf --preview="bat --color=always {}") && vim "$selected"'
 alias v='vim'
 alias vm='vim'
 
@@ -254,6 +254,16 @@ t
 	echo "HEADER - HEADER - HEADER - HEADER - HEADER - HEADER - HEADER - HEADER - HEADER"
 	fi
 
+
+
+
+
+
+vam() {
+  local selected
+  selected=$(locate -i "^$HOME" | fzf --preview='bat --color=always {}')
+  [ -n "$selected" ] && vim "$selected"
+}
 
 grdns() {
     nmcli -t -f NAME connection show --active | grep -v '^lo$' | while read -r conn; do
