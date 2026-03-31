@@ -24,10 +24,10 @@ color=#ed07c3
 command=~/s/w2
 interval=3600
 
-[weather]
-command=~/s/w
-interval=3600
-color=#ed07c3
+#[weather]
+#command=~/s/w
+#interval=3600
+#color=#ed07c3
 
 [volume]
 command=~/s/v
@@ -38,6 +38,7 @@ signal=1
 command=~/s/s
 interval=once
 signal=2
+color=#A8FF78
 
 [battery]
 command=~/s/b
