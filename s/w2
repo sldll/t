@@ -1,0 +1,26 @@
+#!/bin/sh
+# ~/.config/i3blocks/weather.sh
+
+# Fetch weather short description
+weather=$(curl -s --max-time 2 'https://wttr.in/Rijswijk?format=%C' 2>/dev/null)
+
+# Fallback if empty
+[ -z "$weather" ] && echo "\uf185 N/A" && exit 0
+
+# Map wttr.in symbols to Font Awesome
+case "$weather" in
+    ☀* ) icon="\uf185";;      # Sun
+    🌤* ) icon="\uf185";;      # Sun behind cloud
+    ☁* ) icon="\uf0c2";;      # Cloud
+    🌧* ) icon="\uf73d";;      # Rain
+    ❄* | 🌨* ) icon="\uf2dc";; # Snow
+    🌬* ) icon="\uf72e";;      # Wind
+    * ) icon="\uf185";;         # default Sun
+esac
+
+# Fetch temperature
+temp=$(curl -s --max-time 2 'https://wttr.in/Rijswijk?format=%t' 2>/dev/null)
+
+# Output for i3blocks: icon + temperature
+echo -e "$icon $temp"
+exit 0
