@@ -18,6 +18,6 @@ if [[ "$price" == "null" || -z "$price" ]]; then
     echo " | b"
     echo " | b" > /tmp/btc_price.cache
 else
-    echo " | $price"
-    echo " | $price" > /tmp/btc_price.cache
+    echo "$price"
+    echo "$price" > /tmp/btc_price.cache
 fi
