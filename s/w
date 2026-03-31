@@ -6,7 +6,7 @@ weather=$(curl -Ss --max-time 2 'https://wttr.in/Rijswijk?format=4' 2>/dev/null)
 
 # Fallback if empty
 if [ -z "$weather" ]; then
-    echo "🌤 N/A"
+    echo "n/a"
     exit 0
 fi
 

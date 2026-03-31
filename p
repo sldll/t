@@ -57,9 +57,9 @@ archlinux-xdg-menu
 xorg-xwayland
 brightnessctl
 playerctl
-#tlp
-#tlp-rdw
-#tlp-pd
+tlp
+tlp-rdw
+tlp-pd
 rofi
 firefox
 firefox-ublock-origin

@@ -213,7 +213,7 @@ alias bs='vim $dot/.bashrc'
 alias sbs='source ~/.bashrc'
 
 #alias ipkg='grep -v '^\s*#' < read -rp "pkgname:" pkgsfile && cat pkgsfile | sudo pacman -S --needed -'
-alias ipkg='bash -c '\''read -rp "pkgname: " pkgsfile; grep -v "^[[:space:]]*#" "$pkgsfile" | sudo pacman -Syu --noconfirm --needed -'\'''
+alias ipkg='bash -c '\''read -rp "pkgname: " pkgsfile; grep -v "^[[:space:]]*#" "$pkgsfile" | sudo pacman -Syu --needed -'\'''
 alias tvpkg='grep '^\s*##[^#]' pksway | sed 's/^\s*##//' | pacman -Syu --needed --noconfirm -'
 alias pkgs2='grep -v '^\s*#' pkgs2 | sudo pacman -S --noconfirm --needed -'
 
