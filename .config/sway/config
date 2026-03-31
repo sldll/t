@@ -82,6 +82,7 @@ set $menu rofi -show drun -show-icons
     bindsym $mod+Tab workspace back_and_forth
     bindsym $mod+z floating toggle 
     bindsym --locked KP_Add exec playerctl play-pause
+    bindsym --locked Ctrl+KP_Add exec waylock -fork-on-lock -ignore-empty-password  -init-color 0x000000 -input-color 0x000000 && systemctl suspend
     # Start a terminal
     bindsym $mod+Return exec $term
 
