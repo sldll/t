@@ -1,5 +1,6 @@
 output eDP-1 resolution 1920x1080 position 0 0
 output HDMI-A-1 resolution 1920x1080 position 1920 0
+output * bg #212121 solid_color
 
 default_border pixel 2
 hide_edge_borders smart

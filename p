@@ -40,7 +40,7 @@ noto-fonts-emoji
 #i3status
 i3blocks
 sway
-#swaybg
+swaybg
 waylock
 #swaylock
 swayidle
