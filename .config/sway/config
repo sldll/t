@@ -79,7 +79,9 @@ set $menu rofi -show drun -show-icons
 #
 # Basics:
 #
-
+    bindsym $mod+Tab workspace back_and_forth
+    bindsym $mod+z floating toggle 
+    bindsym --locked KP_Add exec playerctl play-pause
     # Start a terminal
     bindsym $mod+Return exec $term
 
@@ -173,7 +175,7 @@ set $menu rofi -show drun -show-icons
     bindsym $mod+Shift+space floating toggle
 
     # Swap focus between the tiling area and the floating area
-    bindsym $mod+space waylock
+    bindsym $mod+space exec waylock -fork-on-lock -ignore-empty-password  -init-color 0x000000 -input-color 0x000000
 
     # Move focus to the parent container
     bindsym $mod+a focus parent
@@ -221,7 +223,7 @@ bindsym $mod+r mode "resize"
     bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5% && pkill -RTMIN+1 i3blocks
     bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5% && pkill -RTMIN+1 i3blocks
     bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle && pkill -RTMIN+1 i3blocks
-    bindsym --locked XF86AudioPlay exec playerctl playpause
+    bindsym --locked XF86AudioPlay suspend
     # Special keys to adjust brightness via brightnessctl
     bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+

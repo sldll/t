@@ -255,10 +255,6 @@ t
 	fi
 
 
-
-
-
-
 vam() {
   local selected
   selected=$(locate -i "^$HOME" | fzf --preview='bat --color=always {}')
