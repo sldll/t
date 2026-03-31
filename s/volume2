@@ -1,0 +1,12 @@
+#!/bin/bash
+
+SINK=$(pactl get-default-sink 2>/dev/null)
+SHORT=$(echo "$SINK" | awk -F'.' '{print $NF}')
+VOLUME=$(pactl get-sink-volume "$SINK" 2>/dev/null | awk '/Volume/{print $5}')
+MUTE=$(pactl get-sink-mute "$SINK" 2>/dev/null | awk '{print $2}')
+
+if [[ "$MUTE" == "yes" ]]; then
+    echo "${SHORT} MUTE"
+else
+    echo "${SHORT} ${VOLUME}"
+fi

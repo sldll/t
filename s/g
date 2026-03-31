@@ -1,0 +1,8 @@
+git checkout --orphan temp-branch
+git add -A
+git commit -m "."
+git branch -D main
+git branch -m main
+git push --force origin main
+
+git push --set-upstream origin main

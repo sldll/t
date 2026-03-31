@@ -1,0 +1,51 @@
+# i3blocks configuration file
+separator=true
+separator_block_width=15
+
+[b]
+command=~/s/bt
+interval=600
+
+#[ip]
+#command=hostname -i | awk '{ print $1 }'
+#interval=once
+
+[internet]
+command=~/s/i
+interval=5
+color=#A8FF78
+
+[weather]
+command=echo "rijswijk"
+interval=once
+color=#ed07c3
+
+#[weather]
+#command=~/s/w
+#interval=3600
+#color=#ed07c3
+
+[volume]
+command=~/s/v
+interval=once
+signal=1
+
+[volume]
+command=~/s/s
+interval=once
+signal=2
+
+[battery]
+command=~/s/b
+interval=10
+color=#ed07c3
+
+[time]
+command=date +%a\ %b\ %d,
+interval=60
+color=#0BDBBE
+
+[time]
+command=date +%H:%M
+interval=60
+color=#ffa800

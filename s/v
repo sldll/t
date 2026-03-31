@@ -1,0 +1,145 @@
+#!/usr/bin/env bash
+# i3blocks volume module
+# Shows current volume percentage and mute status
+# Supports click to mute/unmute and scroll to adjust volume
+#
+# Dependencies: pulseaudio/pipewire (pactl), or alsa (amixer)
+# Place in your i3blocks config:
+#
+#   [volume]
+#   command=~/.config/i3blocks/volume
+#   interval=once
+#   signal=1
+#   #SINK=@DEFAULT_SINK@
+#   #STEP=5
+#   #MIXER=pulse   # or "alsa"
+#   #ALSA_CARD=default
+#   #ALSA_CHANNEL=Master
+#   #ICON_HIGH=🔊
+#   #ICON_MED=🔉
+#   #ICON_LOW=🔈
+#   #ICON_MUTED=🔇
+
+# ── Configuration (override via i3blocks blocklet env vars) ──────────────────
+SINK="${SINK:-@DEFAULT_SINK@}"
+STEP="${STEP:-5}"
+MIXER="${MIXER:-pulse}"          # "pulse" (pactl) or "alsa" (amixer)
+ALSA_CARD="${ALSA_CARD:-default}"
+ALSA_CHANNEL="${ALSA_CHANNEL:-Master}"
+ICON_HIGH="${ICON_HIGH:-🔊}"
+ICON_MED="${ICON_MED:-🔉}"
+ICON_LOW="${ICON_LOW:-🔈}"
+ICON_MUTED="${ICON_MUTED:-🔇}"
+COLOR_NORMAL="${COLOR_NORMAL:-#ffa800}"
+COLOR_MUTED="${COLOR_MUTED:-#ff5555}"
+COLOR_HIGH="${COLOR_HIGH:-#ed07c3}"   # warn color above 100%
+
+# ── Helper: get/set volume via pactl (PulseAudio / PipeWire) ─────────────────
+pulse_get_volume() {
+    pactl get-sink-volume "$SINK" 2>/dev/null \
+        | grep -oP '\d+(?=%)' | head -1
+}
+
+pulse_get_mute() {
+    pactl get-sink-mute "$SINK" 2>/dev/null \
+        | grep -oP '(?<=Mute: )(yes|no)'
+}
+
+pulse_toggle_mute() {
+    pactl set-sink-mute "$SINK" toggle
+}
+
+pulse_change_volume() {
+    local delta="$1"   # e.g. "+5%" or "-5%"
+    pactl set-sink-volume "$SINK" "$delta"
+}
+
+# ── Helper: get/set volume via amixer (ALSA) ─────────────────────────────────
+alsa_get_volume() {
+    amixer -c "$ALSA_CARD" get "$ALSA_CHANNEL" 2>/dev/null \
+        | grep -oP '\d+(?=%)' | head -1
+}
+
+alsa_get_mute() {
+    local state
+    state=$(amixer -c "$ALSA_CARD" get "$ALSA_CHANNEL" 2>/dev/null \
+        | grep -oP '\[(on|off)\]' | head -1)
+    [[ "$state" == "[off]" ]] && echo "yes" || echo "no"
+}
+
+alsa_toggle_mute() {
+    amixer -c "$ALSA_CARD" set "$ALSA_CHANNEL" toggle &>/dev/null
+}
+
+alsa_change_volume() {
+    local delta="$1"
+    amixer -c "$ALSA_CARD" set "$ALSA_CHANNEL" "$delta" &>/dev/null
+}
+
+# ── Dispatch to backend ───────────────────────────────────────────────────────
+get_volume() {
+    [[ "$MIXER" == "alsa" ]] && alsa_get_volume || pulse_get_volume
+}
+
+get_mute() {
+    [[ "$MIXER" == "alsa" ]] && alsa_get_mute || pulse_get_mute
+}
+
+toggle_mute() {
+    [[ "$MIXER" == "alsa" ]] && alsa_toggle_mute || pulse_toggle_mute
+}
+
+change_volume() {
+    [[ "$MIXER" == "alsa" ]] && alsa_change_volume "$1" || pulse_change_volume "$1"
+}
+
+# ── Handle mouse clicks / scroll (i3blocks sets BLOCK_BUTTON) ────────────────
+case "$BLOCK_BUTTON" in
+    1) toggle_mute ;;                          # left click  → mute toggle
+    3) toggle_mute ;;                          # right click → mute toggle
+    4) change_volume "+${STEP}%" ;;            # scroll up   → volume up
+    5) change_volume "-${STEP}%" ;;            # scroll down → volume down
+esac
+
+# After any action, send SIGUSR1 to i3blocks to refresh this block
+# (only needed if interval=once; harmless otherwise)
+# pkill -SIGUSR1 i3blocks   # uncomment if you want auto-refresh on click
+
+# ── Read current state ────────────────────────────────────────────────────────
+VOL=$(get_volume)
+MUTE=$(get_mute)
+
+if [[ -z "$VOL" ]]; then
+    # Could not read volume — backend unavailable
+    echo "N/A"
+    echo "N/A"
+    echo "$COLOR_MUTED"
+    exit 0
+fi
+
+# ── Choose icon ───────────────────────────────────────────────────────────────
+if [[ "$MUTE" == "yes" ]]; then
+    ICON="$ICON_MUTED"
+elif (( VOL == 0 )); then
+    ICON="$ICON_MUTED"
+elif (( VOL < 34 )); then
+    ICON="$ICON_LOW"
+elif (( VOL < 67 )); then
+    ICON="$ICON_MED"
+else
+    ICON="$ICON_HIGH"
+fi
+
+# ── Choose color ──────────────────────────────────────────────────────────────
+if [[ "$MUTE" == "yes" ]]; then
+    COLOR="$COLOR_MUTED"
+elif (( VOL > 100 )); then
+    COLOR="$COLOR_HIGH"
+else
+    COLOR="$COLOR_NORMAL"
+fi
+
+# ── Output (i3blocks protocol: full_text, short_text, color) ─────────────────
+echo "${ICON} ${VOL}%"    # full text
+echo "${VOL}%"            # short text (shown when bar is narrow)
+echo "$COLOR"             # foreground color

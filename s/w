@@ -1,0 +1,2 @@
+#!/bin/sh
+curl -Ss --max-time 2 'https://wttr.in/Rijswijk?format=4' 2>/dev/null | cut -c16- | head -2 | xargs echo

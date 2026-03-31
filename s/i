@@ -1,0 +1,20 @@
+#!/bin/bash
+
+IFACE=$(ip route get 8.8.8.8 2>/dev/null | awk '{print $5; exit}')
+
+if [[ -z "$IFACE" ]]; then
+    echo "NO NET"
+    exit 33
+fi
+
+IP=$(ip -4 addr show "$IFACE" 2>/dev/null | awk '/inet /{print $2}' | cut -d'/' -f1)
+LAST=$(echo "$IP" | awk -F'.' '{print $NF}')
+
+if [[ -d /sys/class/net/$IFACE/wireless ]]; then
+    SSID=$(iwconfig "$IFACE" 2>/dev/null | awk '/ESSID/{split($4,a,"\""); print a[2]}')
+    QUALITY=$(iwconfig "$IFACE" 2>/dev/null | awk '/Link Quality/{split($2,a,"/"); gsub("Quality=","",a[1]); print int(a[1]*100/a[2])}')
+    DBM=$(iwconfig "$IFACE" 2>/dev/null | awk '/Signal level/{match($0,/Signal level=([^ ]+)/,a); print a[1]}')
+    echo "${SSID}${QUALITY}% ${DBM}dBm ${LAST}"
+else
+    echo "$LAST"
+fi
