@@ -9,10 +9,6 @@ workspace_auto_back_and_forth yes
 exec_always gammastep -P -O 3900
 exec ~/s/s2
 
-input type:keyboard {
-    xkb_options "caps:escape_shifted_capslock"
-}
-
 # Default config for sway
 #
 # Copy this to ~/.config/sway/config and edit it to your liking.
@@ -65,13 +61,14 @@ set $menu rofi -show drun -show-icons
    input type:touchpad {
        dwt enabled
        tap enabled
-       natural_scroll enabled
+       #natural_scroll enabled
        middle_emulation enabled
    }
 
-#   input type:keyboard {
+   input type:keyboard {
 #       xkb_layout "eu"
-#   }
+        xkb_options "caps:escape_shifted_capslock
+   }
 #
 # You can also configure each device individually.
 # Read `man 5 sway-input` for more information about this section.
