@@ -15,6 +15,10 @@ bc
 less
 fzf
 ncdu
+bcc
+bcc-tools
+linux-tools
+linux-headers
 fd
 locate
 ripgrep
@@ -55,6 +59,7 @@ wmenu
 xfce4
 hyprland
 niri
+fuzzel
 plasma
 foot
 autotiling-rs
