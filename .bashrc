@@ -43,7 +43,10 @@ alias v='vim'
 alias cpdot='selected=$(fd . . /etc --type f | fzf --preview="bat --color=always {}") && rsync --relative $selected .'
 
 #alias f='read -p "search: " file && fd -H -i -a $file / | fzf'
+
 alias f='fff'
+alias ff='fff'
+
 alias f1='fzf --preview="bat --color=always {}" --preview-window="right,75%,border-left,<80(up,70%,border-bottom)"'
 alias f2='fd -H . --full-path --type f /etc /usr /usr/local /home /var | fzf'
 alias f3='fd -H -i -a'
@@ -136,7 +139,7 @@ alias cl2='CLIP=$(fd --type f --hidden --exclude .git . . | fzf --prompt="Select
 alias hi='history'
 alias hig='history | rg -i'
 alias se="sudoedit"
-alias ff='fastfetch'
+#alias ff='fastfetch'
 alias b2='btop -t -u 100'
 alias b='btop -t -u 100'
 alias tm='tmux'
@@ -182,20 +185,20 @@ alias sshd='systemctl start sshd'
 alias de='declare -f'
 alias mkdir='mkdir -p'
 
-alias dns='~/script/dns'
+alias dns='~/s/dns'
 alias sus='systemctl suspend'
 alias wifi='rfkill toggle wifi'
 
 alias ..='cd ..'
 alias cd..='cd ..'
 alias ll='cd ~/Downloads && echo && eza -la --group-directories-first --sort=size'
-alias fl='cd ~ && echo && eza -la --group-directories-first --sort=size'
-alias sl='cd $dot/script && echo && eza -la --group-directories-first --sort=size'
+alias zl='cd ~ && echo && eza -la --group-directories-first --sort=size'
+alias sl='cd $dot/s && echo && eza -la --group-directories-first --sort=size'
 alias dl='cd $dot && echo && eza -la --group-directories-first --sort=size'
 
 alias lsl='lsblk'
 
-alias real='py script/accu'
+alias real='py s/accu'
 
 #alias gpgc='read -p "file: " file && gpg -c "$file"'
 alias gc='file=$(fzf) && gpg -c "$file" && echo "done"'
@@ -234,6 +237,13 @@ alias pkgs2='grep -v '^\s*#' pkgs2 | sudo pacman -S --noconfirm --needed -'
 #PS1='\n$( [[ -n "$SSH_CONNECTION" ]] && echo "'['$(hostname -i)']'" )\[\e[38;5;214m\]\D{%M}:\D{%S} $PWD 😈  '
 #PS1='\n$( [[ -n "$SSH_CONNECTION" ]] && echo "'['$(hostname -i)']'" )\[\e[38;5;214m\] $PWD 😈  '
 
+#PS1='\n[\u@\h] \w 😈 '
+
+#PS1='[\t] \u@\h:\w\$ '
+#PS1='[$(date +%M)] \u@\h:\w\$ '
+#$(date +%M:%S)
+#PS1='\[\e[2m\][$(date +%M)]\[\e[0m\] \$ '
+
 update_prompt_info() {
     if [[ -n "$SSH_CONNECTION" ]]; then
         SSHIP="[$(hostname -i)] "
@@ -246,22 +256,19 @@ PROMPT_COMMAND=update_prompt_info
 PS1='\n${SSHIP}\[\e[38;5;214m\] \w 😈  '
 t
 
-#PS1='\n[\u@\h] \w 😈 '
-
-#PS1='[\t] \u@\h:\w\$ '
-#PS1='[$(date +%M)] \u@\h:\w\$ '
-#$(date +%M:%S)
-#PS1='\[\e[2m\][$(date +%M)]\[\e[0m\] \$ '
 
 
-
-	if [[ ! -f ~/.luks-done ]]; then
+if [[ ! -f ~/.luks-done ]]; then
 	echo	
 	echo "LUKS - LUKS - LUKS - LUKS - LUKS - LUKS - LUKS - LUKS - LUKS - LULS - LUKS"
 	echo "HEADER - HEADER - HEADER - HEADER - HEADER - HEADER - HEADER - HEADER - HEADER"
 	fi
 
 
+
+
+
+	
 fff() {
   local selected
   sudo updatedb
