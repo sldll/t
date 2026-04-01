@@ -45,7 +45,7 @@ alias cpdot='selected=$(fd . . /etc --type f | fzf --preview="bat --color=always
 #alias f='read -p "search: " file && fd -H -i -a $file / | fzf'
 
 alias f='fff'
-alias ff='fff'
+alias ff='ffl'
 
 alias f1='fzf --preview="bat --color=always {}" --preview-window="right,75%,border-left,<80(up,70%,border-bottom)"'
 alias f2='fd -H . --full-path --type f /etc /usr /usr/local /home /var | fzf'
