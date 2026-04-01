@@ -272,14 +272,14 @@ if [[ ! -f ~/.luks-done ]]; then
 fff() {
   local selected
   sudo updatedb
-  selected=$(locate -i / | fd --full-path '/' -Ht f . '~' | fzf --preview='bat --color=always {}')
+  selected=$(locate -i / | fd -Ht f . '/home' | fzf --preview='bat --color=always {}')
   [ -n "$selected" ] && vim "$selected"
 }
 
 ffl() {
   local selected
   sudo updatedb
-  selected=$(locate -i / | fd --full-path '/' -Ht f . '~' | fzf --preview='bat --color=always {}')
+  selected=$(locate -i / | fd -Ht d . '/home' | fzf --preview='bat --color=always {}')
   [ -n "$selected" ] && vim "$selected"
 }
 
