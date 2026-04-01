@@ -34,16 +34,16 @@ alias cmp2='grep -Fx -f -i'
 alias p='ping 1.1.1.1'
 
 #alias vam='vim $(fzf --preview="bat --color=always {}")'
-alias vam2='selected=$(fzf --preview="bat --color=always {}") && vim "$selected"'
-alias vf='selected=$(fd . / --type f | fzf --preview="bat --color=always {}") && vim "$selected"'
-alias vd='selected=$(fd . / --type f | fzf --preview="bat --color=always {}") && vim "$selected"'
+#alias vam2='selected=$(fzf --preview="bat --color=always {}") && vim "$selected"'
+#alias vf='selected=$(fd . / --type f | fzf --preview="bat --color=always {}") && vim "$selected"'
+#alias vd='selected=$(fd . / --type f | fzf --preview="bat --color=always {}") && vim "$selected"'
 alias v='vim'
-alias vm='vim'
+#alias vm='vim'
 
 alias cpdot='selected=$(fd . . /etc --type f | fzf --preview="bat --color=always {}") && rsync --relative $selected .'
 
-alias f='read -p "search: " file && fd -H -i -a $file / | fzf'
-alias f='fzf'
+#alias f='read -p "search: " file && fd -H -i -a $file / | fzf'
+#alias f='fzf'
 alias f1='fzf --preview="bat --color=always {}" --preview-window="right,75%,border-left,<80(up,70%,border-bottom)"'
 alias f2='fd -H . --full-path --type f /etc /usr /usr/local /home /var | fzf'
 alias f3='fd -H -i -a'
@@ -265,7 +265,14 @@ t
 vll() {
   local selected
   sudo updatedb
-  selected=$(locate -i / | fd --full-path '/' -t f . '/' | fzf --preview='bat --color=always {}')
+  selected=$(locate -i / | fd --full-path '/' -Ht f . '~' | fzf --preview='bat --color=always {}')
+  [ -n "$selected" ] && vim "$selected"
+}
+
+vlh() {
+  local selected
+  sudo updatedb
+  selected=$(locate -i / | fd --full-path '/' -Ht f . '~' | fzf --preview='bat --color=always {}')
   [ -n "$selected" ] && vim "$selected"
 }
 
