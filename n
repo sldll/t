@@ -5,3 +5,25 @@
  ~ 😈  pactl set-card-profile   alsa_card.pci-0000_00_1b.0  output:analog-stereo
 
  ~ 😈  pactl set-default-sink alsa_output.pci-0000_00_1b.0.analog-stereo
+
+performance improvements
+
+twitch latency > off
+irc-ws.chat.twitch.tv > filter ublock
+
+about:config
+layers.acceleration.enabled
+media.ffmpeg.vaapi.enabled
+ui.key
+
+gfx.webrender.all = true — forces WebRender, Firefox's GPU-based rendering engine, to handle all painting instead of the CPU
+
+ui.prefersReducedMotion = 1 — tells Firefox and websites you prefer no motion, disables UI animations and CSS transitions/animations on pages that respect it
+
+toolkit.cosmeticAnimations.enabled = false — disables Firefox's own UI animations like tab open/close, menu fades, loading spinners
+
+Use recommended settings > hardware acceleration is enabled
+
+https://addons.mozilla.org/en-US/firefox/addon/enhanced-h264ify/
+
+

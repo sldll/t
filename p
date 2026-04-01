@@ -94,5 +94,5 @@ net-tools
 #tmux
 linux
 linux-firmware-intel
-#linux-firmware-atheros
+linux-firmware-atheros
 intel-ucode
