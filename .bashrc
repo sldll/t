@@ -261,7 +261,7 @@ t
 
 vam() {
   local selected
-  selected=$(locate -i "^$HOME" | fzf --preview='bat --color=always {}')
+  selected=$(locate -i ~ | fzf --preview='bat --color=always {}')
   [ -n "$selected" ] && vim "$selected"
 }
 
