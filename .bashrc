@@ -116,7 +116,7 @@ alias cb='cat ~/.bashrc | rg -i -F'
 alias k2='cat ~/.config/i3/config | rg -i -F'
 alias k='cat ~/.config/hypr/hyprland.conf | rg -i -F'
 alias wk='~/.config/i3/wttr3'
-alias vidi='vimdiff'
+alias vd='vimdiff'
 
 alias lak='sudo cryptsetup luksAddKey'
 alias lrk='sudo cryptsetup luksRemoveKey'
