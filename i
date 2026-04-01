@@ -91,7 +91,7 @@ bootctl install
 echo "title ubuntu" >> /boot/loader/entries/ubuntu.conf
 echo "linux /vmlinuz-linux" >> /boot/loader/entries/ubuntu.conf
 echo "initrd /initramfs-linux.img" >> /boot/loader/entries/ubuntu.conf
-echo "options cryptdevice=/dev/${DISK}${EX}2:$CR root=/dev/mapper/$CR rw" >> /boot/loader/entries/ubuntu.conf
+echo "options cryptdevice=${DISK}${EX}2:$CR root=/dev/mapper/$CR rw" >> /boot/loader/entries/ubuntu.conf
 
 echo "[zram0]" >> /etc/systemd/zram-generator.conf
 echo "zram-size = ram / 2" >> /etc/systemd/zram-generator.conf
