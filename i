@@ -3,57 +3,16 @@ set -euo pipefail
 
 sleep 0.2
 
-
-#sed -i 's|command=date.*|command=date +%a\\ %b\\ %d,\\ %H:%M|' /etc/i3blocks.conf
-#mkdir /home/$USERNAME/bak
-#
-#cp /etc/xdg/foot/foot.ini /home/$USERNAME/bak/foot.ini.bak
-#cp /etc/sway/config /home/$USERNAME/bak/config.bak 
-#cp /etc/i3blocks.conf /home/$USERNAME/bak/i3blocks.conf.bak 
-#
-#sed -i '1s/^/font=terminus:size=14\n/' /etc/xdg/foot/foot.ini
-#sed -i '1s/^/pad=45x45\n/' /etc/xdg/foot/foot.ini
-#
-#sed -i '1s/^/output eDP-1 resolution 1920x1080 position 0 0\n/' /etc/sway/config
-#sed -i '1s/^/output HDMI-A-1 resolution 1920x1080 position 1920 0\n/' /etc/sway/config
-#sed -i '1s/^/exec_always gammastep -P -O 3900\n/' /etc/sway/config
-#sed -i '1s/^/workspace_auto_back_and_forth yes\n/' /etc/sway/config
-#sed -i '1s/^/hide_edge_borders smart\n/' /etc/sway/config
-#sed -i '1s/^/default_border pixel 2\n/' /etc/sway/config
-#sed -i '1s/^/input type:keyboard {\n    xkb_options "caps:escape_shifted_capslock"\n}\n/' /etc/sway/config
-#
-#sed -i 's/position top/position bottom/' /etc/sway/config
-#sed -i 's/mod+f fullscreen/mod+f layout toggle tabbed split/' /etc/sway/config
-#sed -i 's/Mod4/Mod1/' /etc/sway/config
-#sed -i 's/mod+Shift+q/mod+c/' /etc/sway/config
-#sed -i 's/menu wmenu-run/menu rofi -show drun -show-icons/' /etc/sway/config
-#
-#sed -i '\|share/back|d' /etc/sway/config
-#
-#sed -i 's/$/XF86Audio/ && pkill -RTMIN+1 i3blocks|' /etc/sway/config
-#
-#sed -i '/mod+w/c\bindsym Mod1+w exec firefox' /etc/sway/config
-#sed -i '/mod+space/c\bindsym Mod1+space exec waylock -fork-on-lock -ignore-empty-password  -init-color 0x000000 -input-color 0x000000' /etc/sway/config
-#sed -i '/status_command/c\status_command i3blocks' /etc/sway/config
-#sed -i '/statusline/c\statusline #11917F' /etc/sway/config
-#
-#sed -i '/position bottom/a\font pango:terminus 20' /etc/sway/config
-#sed -i '/background/c\background #181818' /etc/sway/config
-#sed -i '/term foot/a\bindsym Mod1+Tab workspace back_and_forth' /etc/sway/config
-#sed -i '/term foot/a\bindsym --locked KP_Add exec playerctl play-pause' /etc/sway/config
-#sed -i '/term foot/a\bindsym Mod1+z floating toggle' /etc/sway/config
-
-
 echo
 echo "🥵💀🥵💀🥵💀🥵💀🥵💀🥵💀🥵💀🥵💀🥵💀🥵💀🥵💀🥵💀"
 echo
 
-HOST=ubuntu
+HOST=tv
 CNTRY=NL
 R="Europe/Amsterdam"
 DOT=dot
 
-HDD=nvme0n1
+HDD=sda
 DISK="/dev/$HDD"
 EX=p
 CR=crt
@@ -95,7 +54,7 @@ mkfs.ext4 /dev/mapper/$CR
 mount /dev/mapper/$CR /mnt
 mount -o umask=0077 -m ${DISK}${EX}1 /mnt/boot
 
-fallocate -l 8G /mnt/sf
+fallocate -l 4G /mnt/sf
 chmod 600 /mnt/sf
 mkswap /mnt/sf
 swapon -p 10 /mnt/sf
@@ -116,7 +75,7 @@ pacman -S --noconfirm mkinitcpio
 
 sed -i 's/^HOOKS=.*/HOOKS=(base udev autodetect microcode modconf keyboard block encrypt filesystems)/' /etc/mkinitcpio.conf
 
-curl -LO https://github.com/sldll/s/raw/main/p
+curl -LO https://github.com/sldll/t/raw/main/p
 grep -v '^\s*#' p | pacman -S --needed --noconfirm -
 
 echo "root:$PASSWORD" | chpasswd
@@ -129,10 +88,10 @@ sed -i 's/fmask=0022,dmask=0022/umask=0077/' /etc/fstab
 sed -i '/\bext4\b/ s/\brelatime\b/noatime/g' /etc/fstab
 
 bootctl install
-echo "title ubuntu" >> /boot/loader/entries/arch.conf
-echo "linux /vmlinuz-linux" >> /boot/loader/entries/arch.conf
-echo "initrd /initramfs-linux.img" >> /boot/loader/entries/arch.conf
-echo "options cryptdevice=/dev/${DISK}${EX}2:$CR root=/dev/mapper/$CR rw" >> /boot/loader/entries/arch.conf
+echo "title ubuntu" >> /boot/loader/entries/ubuntu.conf
+echo "linux /vmlinuz-linux" >> /boot/loader/entries/ubuntu.conf
+echo "initrd /initramfs-linux.img" >> /boot/loader/entries/ubuntu.conf
+echo "options cryptdevice=/dev/${DISK}${EX}2:$CR root=/dev/mapper/$CR rw" >> /boot/loader/entries/ubuntu.conf
 
 echo "[zram0]" >> /etc/systemd/zram-generator.conf
 echo "zram-size = ram / 2" >> /etc/systemd/zram-generator.conf
@@ -154,7 +113,7 @@ hwclock --systohc
 systemctl enable NetworkManager
 systemctl enable fstrim.timer
 
-su - $USERNAME -c 'mkdir $DOT && cd $DOT && git clone https://github.com/sldll/s . &&  stow . --adopt --no-folding && git restore .'
+su - $USERNAME -c 'mkdir $DOT && cd $DOT && git clone https://github.com/sldll/t . &&  stow . --adopt --no-folding && git restore .'
 
 echo
 echo "🥵💀🥵💀🥵💀🥵💀🥵💀🥵💀🥵💀🥵💀🥵💀🥵💀🥵💀🥵💀"
