@@ -167,7 +167,8 @@ alias stl='echo && zstdfile=$(fzf) && tar -I zstd -tf $zstdfile'
 alias stdir='echo && read -p ".tar.zst name: " file && echo && folder=$(fd -t d | fzf) && tar -I zstd -cvf "$file".tar.zst "$folder" && echo && ls' 
 alias zz='read -p ".7z name: " file && folder=$(fd -t d | fzf) && 7z a -t7z -mx=9 "$file".7z "$folder"'
 
-alias x='xrandr'
+alias x='swaymsg -t get_outputs'
+alias x2='xrandr'
 alias wp='feh --bg-center'
 alias mg='magick -verbose'
 alias loglvl='sudo dmesg -n 3'
@@ -175,6 +176,7 @@ alias loglvl='sudo dmesg -n 3'
 alias sshd='systemctl start sshd'
 
 alias de='declare -f'
+alias mkdir='mkdir -p'
 
 alias dns='~/script/dns'
 alias sus='systemctl suspend'

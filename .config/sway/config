@@ -62,13 +62,13 @@ set $menu rofi -show drun -show-icons
 #
 # Example configuration:
 #
-#   input type:touchpad {
-#       dwt enabled
-#       tap enabled
-#       natural_scroll enabled
-#       middle_emulation enabled
-#   }
-#
+   input type:touchpad {
+       dwt enabled
+       tap enabled
+       natural_scroll enabled
+       middle_emulation enabled
+   }
+
 #   input type:keyboard {
 #       xkb_layout "eu"
 #   }
@@ -83,7 +83,8 @@ set $menu rofi -show drun -show-icons
     bindsym $mod+Tab workspace back_and_forth
     bindsym $mod+z floating toggle 
     bindsym --locked KP_Add exec playerctl play-pause
-    bindsym --locked Ctrl+KP_Add exec waylock -fork-on-lock -ignore-empty-password  -init-color 0x000000 -input-color 0x000000 && systemctl suspend
+    bindsym --locked $mod+KP_Add exec waylock -fork-on-lock -ignore-empty-password  -init-color 0x000000 -input-color 0x000000 && systemctl suspend
+    bindsym --locked Ctrl+KP_Add exec systemctl reboot
     # Start a terminal
     bindsym $mod+Return exec $term
 
