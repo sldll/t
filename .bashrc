@@ -121,6 +121,7 @@ alias lc='sudo cryptsetup luksClose'
 
 alias treee='tree -a -I .git'
 alias ls='eza -la --group-directories-first --sort=size'
+alias lsd='eza -la --group-directories-first --sort=size'
 alias lss='eza -la --sort=size'
 alias lsm='eza -la --sort=modified'
 alias lti='eza -la --time-style=long-iso'
