@@ -45,6 +45,11 @@ command=~/s/b
 interval=once
 color=#11917F
 
+[battery]
+command=~/s/b2
+interval=once
+color=#11917F
+
 [time]
 command=date +%a\ %b\ %d,
 interval=once

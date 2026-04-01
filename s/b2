@@ -1,0 +1,17 @@
+#!/bin/bash
+
+info=$(acpi -b)
+percent=$(echo "$info" | grep -o '[0-9]\+%' | tr -d '%')
+status=$(echo "$info" | cut -d: -f2 | cut -d, -f1 | xargs)
+
+if [ "$status" = "Charging" ]; then
+    icon="⚡"
+elif [ "$percent" -ge 80 ]; then
+    icon="🔋"
+elif [ "$percent" -ge 40 ]; then
+    icon="🔋"
+else
+    icon="🪫"
+fi
+
+echo "$icon ${percent}%"

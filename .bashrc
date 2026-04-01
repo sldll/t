@@ -260,7 +260,7 @@ t
 	fi
 
 
-vh() {
+vll() {
   local selected
   selected=$(locate -i ~ | fzf --preview='bat --color=always {}')
   [ -n "$selected" ] && vim "$selected"
