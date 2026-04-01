@@ -46,6 +46,9 @@ waylock
 swayidle
 wmenu
 foot
+niri
+alacritty
+fuzzel
 #autotiling-rs
 #fish
 polkit-gnome

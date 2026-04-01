@@ -1,0 +1,5 @@
+[window]
+padding = { x = 45, y = 45 }
+[font]
+normal = { family = "Terminus"}
+size = 14

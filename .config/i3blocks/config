@@ -12,7 +12,7 @@ interval=600
 
 [internet]
 command=~/s/i
-interval=5
+interval=once
 color=#A8FF78
 
 [weather]
@@ -42,12 +42,12 @@ color=#A8FF78
 
 [battery]
 command=~/s/b
-interval=10
+interval=once
 color=#11917F
 
 [time]
 command=date +%a\ %b\ %d,
-interval=60
+interval=once
 color=#0BDBBE
 
 [time]
