@@ -67,7 +67,7 @@ set $menu rofi -show drun -show-icons
 
    input type:keyboard {
 #       xkb_layout "eu"
-        xkb_options "caps:escape_shifted_capslock
+        xkb_options caps:escape_shifted_capslock
    }
 #
 # You can also configure each device individually.
