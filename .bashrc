@@ -35,7 +35,8 @@ alias p='ping 1.1.1.1'
 
 #alias vam='vim $(fzf --preview="bat --color=always {}")'
 alias vam2='selected=$(fzf --preview="bat --color=always {}") && vim "$selected"'
-alias vl='selected=$(fd . /usr $HOME/ /etc --type f | fzf --preview="bat --color=always {}") && vim "$selected"'
+alias vf='selected=$(fd . / --type f | fzf --preview="bat --color=always {}") && vim "$selected"'
+alias vd='selected=$(fd . / --type f | fzf --preview="bat --color=always {}") && vim "$selected"'
 alias v='vim'
 alias vm='vim'
 
@@ -111,7 +112,7 @@ alias cb='cat ~/.bashrc | rg -i -F'
 alias k2='cat ~/.config/i3/config | rg -i -F'
 alias k='cat ~/.config/hypr/hyprland.conf | rg -i -F'
 alias wk='~/.config/i3/wttr3'
-alias vd='vimdiff'
+alias vidi='vimdiff'
 
 alias lak='sudo cryptsetup luksAddKey'
 alias lrk='sudo cryptsetup luksRemoveKey'
@@ -262,7 +263,8 @@ t
 
 vll() {
   local selected
-  selected=$(locate -i ~ | fzf --preview='bat --color=always {}')
+  sudo updatedb
+  selected=$(locate -i ~ | fd -t f | fzf --preview='bat --color=always {}')
   [ -n "$selected" ] && vim "$selected"
 }
 
