@@ -35,7 +35,7 @@ alias p='ping 1.1.1.1'
 
 #alias vam='vim $(fzf --preview="bat --color=always {}")'
 alias vam2='selected=$(fzf --preview="bat --color=always {}") && vim "$selected"'
-#alias vam='selected=$(fd . /usr $HOME/ /etc --type f | fzf --preview="bat --color=always {}") && vim "$selected"'
+alias vl='selected=$(fd . /usr $HOME/ /etc --type f | fzf --preview="bat --color=always {}") && vim "$selected"'
 alias v='vim'
 alias vm='vim'
 
@@ -259,7 +259,7 @@ t
 	fi
 
 
-vam() {
+vamh() {
   local selected
   selected=$(locate -i ~ | fzf --preview='bat --color=always {}')
   [ -n "$selected" ] && vim "$selected"
