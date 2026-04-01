@@ -43,6 +43,7 @@ alias vm='vim'
 alias cpdot='selected=$(fd . . /etc --type f | fzf --preview="bat --color=always {}") && rsync --relative $selected .'
 
 alias f='read -p "search: " file && fd -H -i -a $file / | fzf'
+alias f='fzf'
 alias f1='fzf --preview="bat --color=always {}" --preview-window="right,75%,border-left,<80(up,70%,border-bottom)"'
 alias f2='fd -H . --full-path --type f /etc /usr /usr/local /home /var | fzf'
 alias f3='fd -H -i -a'
@@ -264,7 +265,7 @@ t
 vll() {
   local selected
   sudo updatedb
-  selected=$(locate -i ~ | fd -t f | fzf --preview='bat --color=always {}')
+  selected=$(locate -i / | fd --full-path '/' -t f . '/' | fzf --preview='bat --color=always {}')
   [ -n "$selected" ] && vim "$selected"
 }
 
